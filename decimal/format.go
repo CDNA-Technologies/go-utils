@@ -9,7 +9,7 @@ func RoundAndFormat(val interface{}, places int32) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf(fmt.Sprintf("%%.%df", places), rounded), nil
+	return fmt.Sprintf("%0.*f", places, rounded), nil
 }
 
 func CeilAndFormat(val interface{}, places int32) (string, error) {
@@ -17,7 +17,7 @@ func CeilAndFormat(val interface{}, places int32) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf(fmt.Sprintf("%%.%df", places), rounded), nil
+	return fmt.Sprintf("%0.*f", places, rounded), nil
 }
 
 func FloorAndFormat(val interface{}, places int32) (string, error) {
@@ -25,5 +25,5 @@ func FloorAndFormat(val interface{}, places int32) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf(fmt.Sprintf("%%.%df", places), rounded), nil
+	return fmt.Sprintf("%0.*f", places, rounded), nil
 }
