@@ -240,7 +240,7 @@ func TestIsConsonant(t *testing.T) {
 	}
 }
 
-func TesinputoLower(t *testing.T) {
+func TestToLower(t *testing.T) {
 	type args struct {
 		ch rune
 	}
@@ -267,15 +267,15 @@ func TesinputoLower(t *testing.T) {
 		{args: args{ch: '\''}, want: '\''},
 	}
 	for _, input := range tests {
-		t.Run(fmt.Sprintf("TesinputoLower(%v)", input.args.ch), func(t *testing.T) {
+		t.Run(fmt.Sprintf("TesttoLower(%v)", input.args.ch), func(t *testing.T) {
 			if got := ToLower(input.args.ch); got != input.want {
-				t.Errorf("TesinputoLower(%v) = %v, want %v", input.args.ch, got, input.want)
+				t.Errorf("TesttoLower(%v) = %v, want %v", input.args.ch, got, input.want)
 			}
 		})
 	}
 }
 
-func TesinputoUpper(t *testing.T) {
+func TestToUpper(t *testing.T) {
 	type args struct {
 		ch rune
 	}
@@ -302,9 +302,9 @@ func TesinputoUpper(t *testing.T) {
 		{args: args{ch: '\''}, want: '\''},
 	}
 	for _, input := range tests {
-		t.Run(fmt.Sprintf("TesinputoUpper(%v)", input.args.ch), func(t *testing.T) {
+		t.Run(fmt.Sprintf("TestToUpper(%v)", input.args.ch), func(t *testing.T) {
 			if got := ToUpper(input.args.ch); got != input.want {
-				t.Errorf("TesinputoUpper(%v) = %v, want %v", input.args.ch, got, input.want)
+				t.Errorf("TestToUpper(%v) = %v, want %v", input.args.ch, got, input.want)
 			}
 		})
 	}
