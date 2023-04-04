@@ -5,6 +5,9 @@ import (
 )
 
 func RoundAndFormat(val interface{}, places int32) (string, error) {
+	if places < 0 {
+		places = 0
+	}
 	rounded, err := Round(val, places)
 	if err != nil {
 		return "", err
@@ -13,6 +16,9 @@ func RoundAndFormat(val interface{}, places int32) (string, error) {
 }
 
 func CeilAndFormat(val interface{}, places int32) (string, error) {
+	if places < 0 {
+		places = 0
+	}
 	rounded, err := Ceil(val, places)
 	if err != nil {
 		return "", err
@@ -21,6 +27,9 @@ func CeilAndFormat(val interface{}, places int32) (string, error) {
 }
 
 func FloorAndFormat(val interface{}, places int32) (string, error) {
+	if places < 0 {
+		places = 0
+	}
 	rounded, err := Floor(val, places)
 	if err != nil {
 		return "", err
