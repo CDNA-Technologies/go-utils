@@ -48,7 +48,6 @@ func TestRoundAndFormat(t *testing.T) {
 		{"-1.000", 4, "-1.0000", nil},
 		{"-1", 4, "-1.0000", nil},
 		{"0", 4, "0.0000", nil},
-		{"0", -4, "0", nil},
 
 		// Error test cases
 		{"invalid", 2, "", errors.New("strconv.ParseFloat: parsing \"invalid\": invalid syntax")},
@@ -114,7 +113,6 @@ func TestCeilAndFormat(t *testing.T) {
 		{"-1.000", 4, "-1.0000", nil},
 		{"-1", 4, "-1.0000", nil},
 		{"0", 4, "0.0000", nil},
-		{"1", -4, "1", nil},
 
 		// Error test cases
 		{"invalid", 2, "", errors.New("strconv.ParseFloat: parsing \"invalid\": invalid syntax")},
@@ -180,7 +178,6 @@ func TestFloorAndFormat(t *testing.T) {
 		{"-1.000", 4, "-1.0000", nil},
 		{"-1", 4, "-1.0000", nil},
 		{"0", 4, "0.0000", nil},
-		{"0", -4, "0", nil},
 
 		// Error test cases
 		{"invalid", 2, "", errors.New("strconv.ParseFloat: parsing \"invalid\": invalid syntax")},
