@@ -1,29 +1,38 @@
 package decimal
 
 import (
-	"strconv"
+	"fmt"
 )
 
 func RoundAndFormat(val interface{}, places int32) (string, error) {
+	if places < 0 {
+		places = 0
+	}
 	rounded, err := Round(val, places)
 	if err != nil {
 		return "", err
 	}
-	return strconv.FormatFloat(rounded, 'f', int(places), 64), nil
+	return fmt.Sprintf("%0.*f", places, rounded), nil
 }
 
 func CeilAndFormat(val interface{}, places int32) (string, error) {
+	if places < 0 {
+		places = 0
+	}
 	rounded, err := Ceil(val, places)
 	if err != nil {
 		return "", err
 	}
-	return strconv.FormatFloat(rounded, 'f', int(places), 64), nil
+	return fmt.Sprintf("%0.*f", places, rounded), nil
 }
 
 func FloorAndFormat(val interface{}, places int32) (string, error) {
+	if places < 0 {
+		places = 0
+	}
 	rounded, err := Floor(val, places)
 	if err != nil {
 		return "", err
 	}
-	return strconv.FormatFloat(rounded, 'f', int(places), 64), nil
+	return fmt.Sprintf("%0.*f", places, rounded), nil
 }
