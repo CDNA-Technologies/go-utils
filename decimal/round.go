@@ -6,6 +6,11 @@ import (
 	"strconv"
 )
 
+/**
+	Rounds the given value to the given number of decimal places.
+
+	Example: Round(10.576,2) = 10.58, Round(6.7816, 3) = 6.781
+**/
 func Round(val interface{}, places int32) (float64, error) {
 	switch v := val.(type) {
 	case int:
@@ -41,6 +46,11 @@ func round(val float64, places int32) float64 {
 	return math.Round(val*shift) / shift
 }
 
+/**
+	Calculates the smallest integer value greater than or equal to the input value, rounded up to the given number of decimal places.
+
+	Example: Ceil(10.526,2) = 10.53, Round(6.7816, 3) = 6.782
+**/
 func Ceil(val interface{}, places int32) (float64, error) {
 	switch v := val.(type) {
 	case int:
@@ -76,6 +86,11 @@ func ceil(val float64, places int32) float64 {
 	return math.Ceil(val*shift) / shift
 }
 
+/**
+	Calculates the smallest integer value lesser than or equal to the input value, rounded up to the given number of decimal places.
+
+	Example: Ceil(10.526,2) = 10.52, Round(6.7816, 3) = 6.781
+**/
 func Floor(val interface{}, places int32) (float64, error) {
 	switch v := val.(type) {
 	case int:
