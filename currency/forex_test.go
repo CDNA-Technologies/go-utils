@@ -17,7 +17,11 @@ func TestGetLatestRates(t *testing.T) {
 	}{
 		{
 			args: args{
-				req: LatestRatesRequest{},
+				req: LatestRatesRequest{
+					WantCurrencies: []string{"INR"},
+					Amount:         1,
+					RoundPlaces:    2,
+				},
 			},
 			want:    LatestRatesResponse{},
 			wantErr: false,

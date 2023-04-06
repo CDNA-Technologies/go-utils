@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"time"
 )
 
 const (
@@ -13,41 +12,37 @@ const (
 )
 
 type LatestRatesRequest struct {
-	BaseCurrency   interface{}
-	WantCurrencies []interface{}
-	Amount         interface{}
-	RoundPlaces    interface{}
+	BaseCurrency   string
+	WantCurrencies []string
+	Amount         float64
+	RoundPlaces    int32
 }
 
 type LatestRatesResponse struct {
-	BaseCurrency string
-	Date         time.Duration
-	Rates        map[string]float32
+	BaseCurrency string             `json:"base,omitempty"`
+	Date         string             `json:"date,omitempty"`
+	Rates        map[string]float32 `json:"rates,omitempty"`
 }
 
 func latestRateUrl(req LatestRatesRequest) string {
 	url := ExchangeRateAPIBaseURL + LatestRateEndpoint
 
-	if req.Amount != nil {
-		url += "?amount=" + req.Amount.(string)
+	url += fmt.Sprintf("?amount=%f", req.Amount)
+	url += fmt.Sprintf("&places=%d", req.RoundPlaces)
+
+	if req.BaseCurrency != "" {
+		url += fmt.Sprintf("&base=%s", req.BaseCurrency)
 	}
 
-	if req.RoundPlaces != nil {
-		url += "?places=" + req.RoundPlaces.(string)
-	}
-
-	if req.BaseCurrency != nil {
-		url += "?base=" + req.BaseCurrency.(string)
-	}
-
-	if req.WantCurrencies != nil && len(req.WantCurrencies) != 0 {
-		url += "?places="
+	if req.WantCurrencies != nil && len(req.WantCurrencies) > 0 {
+		url += "&symbols="
 		for _, c := range req.WantCurrencies {
-			url += c.(string) + ","
+			url += c + ","
 		}
 	}
 
-	return url
+	// Remove the extra ',' at the end
+	return url[0 : len(url)-1]
 }
 
 func GetLatestRates(req LatestRatesRequest) (LatestRatesResponse, error) {
@@ -62,8 +57,12 @@ func GetLatestRates(req LatestRatesRequest) (LatestRatesResponse, error) {
 		fmt.Println(err)
 	}
 
-	var result map[string]interface{}
-	json.NewDecoder(resp.Body).Decode(&result)
+	var res LatestRatesResponse
+	err = json.NewDecoder(resp.Body).Decode(&res)
 
-	return LatestRatesResponse{}, nil
+	if err != nil {
+		return LatestRatesResponse{}, fmt.Errorf("unable to parse response body: %v, error: %v", res, res)
+	}
+
+	return res, nil
 }
