@@ -1,23 +1,15 @@
 package testing
 
 func IsErrorEqual(a, b error) bool {
-	isANil := a == nil
-	isBNil := b == nil
-
 	// If both are nil then true
-	if isANil && isBNil {
+	if a == nil && b == nil {
 		return true
 	}
 
 	// If either one in nil then false
-	if isANil || isBNil {
+	if a == nil || b == nil {
 		return false
 	}
 
-	// If error message differ than true
-	if a.Error() != b.Error() {
-		return false
-	}
-
-	return true
+	return a.Error() == b.Error()
 }
