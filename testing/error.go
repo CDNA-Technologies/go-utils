@@ -1,15 +1,18 @@
 package testing
 
-func IsErrorEqual(a, b error) bool {
+/**
+	Compare the given errors and return true if equal, or else returns false.
+**/
+func IsErrorEqual(wantErr, err error) bool {
 	// If both are nil then true
-	if a == nil && b == nil {
+	if wantErr == nil && err == nil {
 		return true
 	}
 
 	// If either one in nil then false
-	if a == nil || b == nil {
+	if wantErr == nil || err == nil {
 		return false
 	}
 
-	return a.Error() == b.Error()
+	return wantErr.Error() == err.Error()
 }
