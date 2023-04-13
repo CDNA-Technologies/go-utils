@@ -68,10 +68,12 @@ func TestParseAndValidateOrderBy(t *testing.T) {
 		t.Run(fmt.Sprintf("TestParseAndValidateOrderBy(%v)", input.req), func(t *testing.T) {
 			got, err := ParseAndValidateOrderBy(input.req)
 			if !testUtils.IsErrorEqual(input.wantErr, err) {
-				t.Errorf("ParseAndValidateOrderBy(%v) got error = %#v, wantErr %#v", input.req, err, input.wantErr)
+				t.Errorf("ParseAndValidateOrderBy(%v) got error = %#v, wantErr %#v",
+					input.req, err, input.wantErr)
 			}
 			if !reflect.DeepEqual(got, input.want) {
-				t.Errorf("ParseAndValidateOrderBy(%v) = %#v, want %#v", input.req, got, input.want)
+				t.Errorf("ParseAndValidateOrderBy(%v) = %#v, want %#v",
+					input.req, got, input.want)
 			}
 		})
 	}
