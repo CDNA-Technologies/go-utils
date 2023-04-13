@@ -12,61 +12,61 @@ import (
 
 func TestParseAndValidatePageSize(t *testing.T) {
 	tests := []struct {
-		req     pagination.Request
-		minps   int32
-		maxps   int32
-		want    int32
-		wantErr error
+		req         pagination.Request
+		minPageSize int32
+		maxPageSize int32
+		want        int32
+		wantErr     error
 	}{
 		{
 			req: &pb.ListPartnersRequest{
 				PageSize:  1,
 				PageToken: "",
 			},
-			minps:   5,
-			maxps:   100,
-			want:    5,
-			wantErr: nil,
+			minPageSize: 5,
+			maxPageSize: 100,
+			want:        5,
+			wantErr:     nil,
 		},
 		{
 			req: &pb.ListPartnersRequest{
 				PageSize:  500,
 				PageToken: "",
 			},
-			minps:   5,
-			maxps:   100,
-			want:    100,
-			wantErr: nil,
+			minPageSize: 5,
+			maxPageSize: 100,
+			want:        100,
+			wantErr:     nil,
 		},
 		{
 			req: &pb.ListPartnersRequest{
 				PageSize:  50,
 				PageToken: "",
 			},
-			minps:   5,
-			maxps:   100,
-			want:    50,
-			wantErr: nil,
+			minPageSize: 5,
+			maxPageSize: 100,
+			want:        50,
+			wantErr:     nil,
 		},
 		{
 			req: &pb.ListPartnersRequest{
 				PageSize:  -5,
 				PageToken: "",
 			},
-			minps:   5,
-			maxps:   100,
-			want:    0,
-			wantErr: fmt.Errorf("invalid page size : -5"),
+			minPageSize: 5,
+			maxPageSize: 100,
+			want:        0,
+			wantErr:     fmt.Errorf("invalid page size : -5"),
 		},
 	}
-	for _, tt := range tests {
-		t.Run(fmt.Sprintf("ParseAndValidatePageSize(%v, %v, %v)", tt.req.GetPageSize(), tt.minps, tt.maxps), func(t *testing.T) {
-			got, err := ParseAndValidatePageSize(tt.req, tt.minps, tt.maxps)
-			if !testUtils.IsErrorEqual(tt.wantErr, err) {
-				t.Errorf("expected %#v but got %#v", tt.wantErr, err)
+	for _, input := range tests {
+		t.Run(fmt.Sprintf("TestParseAndValidatePageSize(%#v, %#v, %#v)", input.req.GetPageSize(), input.minPageSize, input.maxPageSize), func(t *testing.T) {
+			got, err := ParseAndValidatePageSize(input.req, input.minPageSize, input.maxPageSize)
+			if !testUtils.IsErrorEqual(input.wantErr, err) {
+				t.Errorf("ParseAndValidatePageSize(%#v, %#v, %#v) got error =  %#v, wantErr =  %#v", input.req.GetPageSize(), input.minPageSize, input.maxPageSize, err, input.wantErr)
 			}
-			if got != tt.want {
-				t.Errorf("ParseAndValidatePageSize() = %v, want %v", got, tt.want)
+			if got != input.want {
+				t.Errorf("ParseAndValidatePageSize(%#v, %#v, %#v) =  %#v, want =  %#v", input.req.GetPageSize(), input.minPageSize, input.maxPageSize, got, input.want)
 			}
 		})
 	}
@@ -74,44 +74,44 @@ func TestParseAndValidatePageSize(t *testing.T) {
 
 func TestNextPageToken(t *testing.T) {
 	tests := []struct {
-		req        pagination.Request
-		resultSize int32
-		minps      int32
-		maxps      int32
-		want       string
-		wantErr    error
+		req         pagination.Request
+		resultSize  int32
+		minPageSize int32
+		maxPageSize int32
+		want        string
+		wantErr     error
 	}{
 		{
 			req: &pb.ListPartnersRequest{
 				PageSize:  10,
 				PageToken: "",
 			},
-			resultSize: 5,
-			minps:      5,
-			maxps:      100,
-			want:       "",
-			wantErr:    nil,
+			resultSize:  5,
+			minPageSize: 5,
+			maxPageSize: 100,
+			want:        "",
+			wantErr:     nil,
 		},
 		{
 			req: &pb.ListPartnersRequest{
 				PageSize:  10,
 				PageToken: "",
 			},
-			resultSize: 15,
-			minps:      5,
-			maxps:      100,
-			want:       "Nv-BAwEBCVBhZ2VUb2tlbgH_ggABAgEGT2Zmc2V0AQQAAQ9SZXF1ZXN0Q2hlY2tzdW0BBgAAAAv_ggEUAfyaywRCAA==",
-			wantErr:    nil,
+			resultSize:  15,
+			minPageSize: 5,
+			maxPageSize: 100,
+			want:        "Nv-BAwEBCVBhZ2VUb2tlbgH_ggABAgEGT2Zmc2V0AQQAAQ9SZXF1ZXN0Q2hlY2tzdW0BBgAAAAv_ggEUAfyaywRCAA==",
+			wantErr:     nil,
 		},
 	}
-	for _, tt := range tests {
-		t.Run(fmt.Sprintf("NextPageToken(%v, %v, %v, %v)", tt.req, tt.resultSize, tt.minps, tt.maxps), func(t *testing.T) {
-			got, err := NextPageToken(tt.req, tt.resultSize, tt.minps, tt.maxps)
-			if !testUtils.IsErrorEqual(tt.wantErr, err) {
-				t.Errorf("expected %#v but got %#v", tt.wantErr, err)
+	for _, input := range tests {
+		t.Run(fmt.Sprintf("TestNextPageToken(%#v, %#v, %#v, %#v)", input.req, input.resultSize, input.minPageSize, input.maxPageSize), func(t *testing.T) {
+			got, err := NextPageToken(input.req, input.resultSize, input.minPageSize, input.maxPageSize)
+			if !testUtils.IsErrorEqual(input.wantErr, err) {
+				t.Errorf("NextPageToken(%#v, %#v, %#v, %#v) got error = %#v, wantErr %#v", input.req, input.resultSize, input.minPageSize, input.maxPageSize, err, input.wantErr)
 			}
-			if got != tt.want {
-				t.Errorf("NextPageToken() = %v, want %v", got, tt.want)
+			if got != input.want {
+				t.Errorf("NextPageToken(%#v, %#v, %#v, %#v) = %#v, want %#v", input.req, input.resultSize, input.minPageSize, input.maxPageSize, got, input.want)
 			}
 		})
 	}
@@ -129,7 +129,7 @@ func TestParseAndValidatePageToken(t *testing.T) {
 				PageSize:  10,
 			},
 			want:    pagination.PageToken{},
-			wantErr: fmt.Errorf("invalid page token : Random String"),
+			wantErr: fmt.Errorf("parse offset page token: decode page token struct: illegal base64 data at input byte 6"),
 		},
 		{
 			req: &pb.ListPartnersRequest{
@@ -154,15 +154,15 @@ func TestParseAndValidatePageToken(t *testing.T) {
 			wantErr: nil,
 		},
 	}
-	for _, tt := range tests {
-		t.Run(fmt.Sprintf("ParsePageToken(%v)", tt.req), func(t *testing.T) {
-			got, err := ParseAndValidatePageToken(tt.req)
-			if !testUtils.IsErrorEqual(tt.wantErr, err) {
-				t.Errorf("ParseAndValidatePageToken() error = %v, wantErr %v", err, tt.wantErr)
+	for _, input := range tests {
+		t.Run(fmt.Sprintf("TestParseAndValidatePageToken(%#v)", input.req), func(t *testing.T) {
+			got, err := ParseAndValidatePageToken(input.req)
+			if !testUtils.IsErrorEqual(input.wantErr, err) {
+				t.Errorf("ParseAndValidatePageToken(%#v) got error = %#v, wantErr %#v", input.req, err, input.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("ParseAndValidatePageToken() = %v, want %v", got, tt.want)
+			if !reflect.DeepEqual(got, input.want) {
+				t.Errorf("ParseAndValidatePageToken(%#v) = %#v, want %#v", input.req, got, input.want)
 			}
 		})
 	}

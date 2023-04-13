@@ -1,8 +1,6 @@
 package aip
 
 import (
-	"fmt"
-
 	"go.einride.tech/aip/ordering"
 )
 
@@ -12,7 +10,7 @@ const (
 )
 
 /**
-	Extract order by from request and parse it and converts into a map of field and order.
+	Extract order by from request and parse it and convert into a map of field and order.
 	Eg: Name desc
 		Age
 		Salary desc
@@ -21,7 +19,7 @@ const (
 func ParseAndValidateOrderBy(req ordering.Request) (map[string]string, error) {
 	o, err := ordering.ParseOrderBy(req)
 	if err != nil {
-		return nil, fmt.Errorf("invalid orderby : %v", req.GetOrderBy())
+		return nil, err
 	}
 
 	m := make(map[string]string, len(o.Fields))

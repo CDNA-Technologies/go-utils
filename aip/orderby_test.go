@@ -28,14 +28,14 @@ func TestParseAndValidateOrderBy(t *testing.T) {
 				OrderBy: "?",
 			},
 			want:    nil,
-			wantErr: fmt.Errorf("invalid orderby : ?"),
+			wantErr: fmt.Errorf("unmarshal order by '?': invalid character '?'"),
 		},
 		{
 			req: &pb.ListPartnersRequest{
 				OrderBy: "name desc age asc",
 			},
 			want:    nil,
-			wantErr: fmt.Errorf("invalid orderby : name desc age asc"),
+			wantErr: fmt.Errorf("unmarshal order by 'name desc age asc': invalid format"),
 		},
 		{
 			req: &pb.ListPartnersRequest{
@@ -61,17 +61,17 @@ func TestParseAndValidateOrderBy(t *testing.T) {
 				OrderBy: "name Desc, age",
 			},
 			want:    nil,
-			wantErr: fmt.Errorf("invalid orderby : name Desc, age"),
+			wantErr: fmt.Errorf("unmarshal order by 'name Desc, age': invalid format"),
 		},
 	}
-	for _, tt := range tests {
-		t.Run(fmt.Sprintf("ParseAndValidateOrderBy(%v)", tt.req.GetOrderBy()), func(t *testing.T) {
-			got, err := ParseAndValidateOrderBy(tt.req)
-			if !testUtils.IsErrorEqual(tt.wantErr, err) {
-				t.Errorf("expected %#v but got %#v", tt.wantErr, err)
+	for _, input := range tests {
+		t.Run(fmt.Sprintf("TestParseAndValidateOrderBy(%#v)", input.req.GetOrderBy()), func(t *testing.T) {
+			got, err := ParseAndValidateOrderBy(input.req)
+			if !testUtils.IsErrorEqual(input.wantErr, err) {
+				t.Errorf("ParseAndValidateOrderBy(%#v) got error = %#v, wantErr %#v", input.req.GetOrderBy(), err, input.wantErr)
 			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("ParseAndValidateOrderBy() = %v, want %v", got, tt.want)
+			if !reflect.DeepEqual(got, input.want) {
+				t.Errorf("ParseAndValidateOrderBy(%#v) = %#v, want %#v", input.req.GetOrderBy(), got, input.want)
 			}
 		})
 	}

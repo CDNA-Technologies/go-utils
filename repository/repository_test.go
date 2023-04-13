@@ -41,11 +41,11 @@ func TestWithOrderBy(t *testing.T) {
 			want: []func(db *gorm.DB) *gorm.DB{},
 		},
 	}
-	for _, tt := range tests {
-		t.Run(fmt.Sprintf("WithOrderBy(%v)", tt.ob), func(t *testing.T) {
-			got := WithOrderBy(tt.ob)
-			if len(got) != len(tt.want) {
-				t.Errorf("WithOrderBy() = %v, want %v", got, tt.want)
+	for _, input := range tests {
+		t.Run(fmt.Sprintf("TestWithOrderBy(%#v)", input.ob), func(t *testing.T) {
+			got := WithOrderBy(input.ob)
+			if len(got) != len(input.want) {
+				t.Errorf("WithOrderBy(%#v) output array length = %#v, want length %#v", input.ob, got, input.want)
 			}
 		})
 	}
