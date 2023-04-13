@@ -10,7 +10,7 @@ import (
 	Extract page size from request and maps it between min page size and max page size if not in range.
 	For more - https://google.aip.dev/158
 **/
-func ParsePageSize(req pagination.Request, minps int32, maxps int32) (int32, error) {
+func ParseAndValidatePageSize(req pagination.Request, minps int32, maxps int32) (int32, error) {
 	switch {
 	case req.GetPageSize() >= 0 && req.GetPageSize() <= minps:
 		return minps, nil
@@ -27,7 +27,7 @@ func ParsePageSize(req pagination.Request, minps int32, maxps int32) (int32, err
 	Extract page token from request and parse it.
 	For more - https://google.aip.dev/158
 **/
-func ParsePageToken(req pagination.Request) (pagination.PageToken, error) {
+func ParseAndValidatePageToken(req pagination.Request) (pagination.PageToken, error) {
 	pt, err := pagination.ParsePageToken(req)
 	if err != nil {
 		return pagination.PageToken{}, fmt.Errorf("invalid page token : %v", req.GetPageToken())
@@ -40,11 +40,11 @@ func ParsePageToken(req pagination.Request) (pagination.PageToken, error) {
 	For more - https://google.aip.dev/158
 **/
 func NextPageToken(req pagination.Request, resultSize int32, minps int32, maxps int32) (string, error) {
-	pageSize, err := ParsePageSize(req, minps, maxps)
+	pageSize, err := ParseAndValidatePageSize(req, minps, maxps)
 	if err != nil {
 		return empty, err
 	}
-	pageToken, err := ParsePageToken(req)
+	pageToken, err := ParseAndValidatePageToken(req)
 	if err != nil {
 		return empty, err
 	}

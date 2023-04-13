@@ -18,7 +18,7 @@ const (
 		Salary desc
 	For more - https://google.aip.dev/132
 **/
-func ParseOrderBy(req ordering.Request) (map[string]string, error) {
+func ParseAndValidateOrderBy(req ordering.Request) (map[string]string, error) {
 	o, err := ordering.ParseOrderBy(req)
 	if err != nil {
 		return nil, fmt.Errorf("invalid orderby : %v", req.GetOrderBy())

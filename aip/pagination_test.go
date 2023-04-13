@@ -10,7 +10,7 @@ import (
 	"go.einride.tech/aip/pagination"
 )
 
-func TestParsePageSize(t *testing.T) {
+func TestParseAndValidatePageSize(t *testing.T) {
 	tests := []struct {
 		req     pagination.Request
 		minps   int32
@@ -61,7 +61,7 @@ func TestParsePageSize(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(fmt.Sprintf("ParseAndValidatePageSize(%v, %v, %v)", tt.req.GetPageSize(), tt.minps, tt.maxps), func(t *testing.T) {
-			got, err := ParsePageSize(tt.req, tt.minps, tt.maxps)
+			got, err := ParseAndValidatePageSize(tt.req, tt.minps, tt.maxps)
 			if !testUtils.IsErrorEqual(tt.wantErr, err) {
 				t.Errorf("expected %#v but got %#v", tt.wantErr, err)
 			}
@@ -117,7 +117,7 @@ func TestNextPageToken(t *testing.T) {
 	}
 }
 
-func TestParsePageToken(t *testing.T) {
+func TestParseAndValidatePageToken(t *testing.T) {
 	tests := []struct {
 		req     pagination.Request
 		want    pagination.PageToken
@@ -156,13 +156,13 @@ func TestParsePageToken(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(fmt.Sprintf("ParsePageToken(%v)", tt.req), func(t *testing.T) {
-			got, err := ParsePageToken(tt.req)
+			got, err := ParseAndValidatePageToken(tt.req)
 			if !testUtils.IsErrorEqual(tt.wantErr, err) {
-				t.Errorf("ParsePageToken() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("ParseAndValidatePageToken() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("ParsePageToken() = %v, want %v", got, tt.want)
+				t.Errorf("ParseAndValidatePageToken() = %v, want %v", got, tt.want)
 			}
 		})
 	}

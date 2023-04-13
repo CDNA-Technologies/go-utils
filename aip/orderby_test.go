@@ -10,7 +10,7 @@ import (
 	"go.einride.tech/aip/ordering"
 )
 
-func TestParseOrderBy(t *testing.T) {
+func TestParseAndValidateOrderBy(t *testing.T) {
 	tests := []struct {
 		req     ordering.Request
 		want    map[string]string
@@ -65,13 +65,13 @@ func TestParseOrderBy(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		t.Run(fmt.Sprintf("ParseOrderBy(%v)", tt.req.GetOrderBy()), func(t *testing.T) {
-			got, err := ParseOrderBy(tt.req)
+		t.Run(fmt.Sprintf("ParseAndValidateOrderBy(%v)", tt.req.GetOrderBy()), func(t *testing.T) {
+			got, err := ParseAndValidateOrderBy(tt.req)
 			if !testUtils.IsErrorEqual(tt.wantErr, err) {
 				t.Errorf("expected %#v but got %#v", tt.wantErr, err)
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("ParseOrderBy() = %v, want %v", got, tt.want)
+				t.Errorf("ParseAndValidateOrderBy() = %v, want %v", got, tt.want)
 			}
 		})
 	}

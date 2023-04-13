@@ -20,7 +20,3 @@ func WithPagination(pageSize int, offSet int) func(db *gorm.DB) *gorm.DB {
 		return db.Offset(offSet).Limit(pageSize)
 	}
 }
-
-func IsActive(db *gorm.DB) *gorm.DB {
-	return db.Where("status = 1")
-}
