@@ -45,7 +45,7 @@ func TestWithOrderBy(t *testing.T) {
 		t.Run(fmt.Sprintf("TestWithOrderBy(%v)", input.ob), func(t *testing.T) {
 			got := WithOrderBy(input.ob)
 			if len(got) != len(input.want) {
-				t.Errorf("WithOrderBy(%v) output array length = %#v, want length %#v", input.ob, got, input.want)
+				t.Errorf("WithOrderBy(%v) output array length = %d, want length %d", input.ob, len(got), len(input.want))
 			}
 		})
 	}
