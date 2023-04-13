@@ -60,13 +60,13 @@ func TestParseAndValidatePageSize(t *testing.T) {
 		},
 	}
 	for _, input := range tests {
-		t.Run(fmt.Sprintf("TestParseAndValidatePageSize(%#v, %#v, %#v)", input.req.GetPageSize(), input.minPageSize, input.maxPageSize), func(t *testing.T) {
+		t.Run(fmt.Sprintf("TestParseAndValidatePageSize(%v, %d, %d)", input.req.GetPageSize(), input.minPageSize, input.maxPageSize), func(t *testing.T) {
 			got, err := ParseAndValidatePageSize(input.req, input.minPageSize, input.maxPageSize)
 			if !testUtils.IsErrorEqual(input.wantErr, err) {
-				t.Errorf("ParseAndValidatePageSize(%#v, %#v, %#v) got error =  %#v, wantErr =  %#v", input.req.GetPageSize(), input.minPageSize, input.maxPageSize, err, input.wantErr)
+				t.Errorf("ParseAndValidatePageSize(%v, %d, %d) got error =  %#v, wantErr =  %#v", input.req.GetPageSize(), input.minPageSize, input.maxPageSize, err, input.wantErr)
 			}
 			if got != input.want {
-				t.Errorf("ParseAndValidatePageSize(%#v, %#v, %#v) =  %#v, want =  %#v", input.req.GetPageSize(), input.minPageSize, input.maxPageSize, got, input.want)
+				t.Errorf("ParseAndValidatePageSize(%v, %d, %d) =  %#v, want =  %#v", input.req.GetPageSize(), input.minPageSize, input.maxPageSize, got, input.want)
 			}
 		})
 	}
@@ -105,13 +105,13 @@ func TestNextPageToken(t *testing.T) {
 		},
 	}
 	for _, input := range tests {
-		t.Run(fmt.Sprintf("TestNextPageToken(%#v, %#v, %#v, %#v)", input.req, input.resultSize, input.minPageSize, input.maxPageSize), func(t *testing.T) {
+		t.Run(fmt.Sprintf("TestNextPageToken(%v, %d, %d, %d)", input.req, input.resultSize, input.minPageSize, input.maxPageSize), func(t *testing.T) {
 			got, err := NextPageToken(input.req, input.resultSize, input.minPageSize, input.maxPageSize)
 			if !testUtils.IsErrorEqual(input.wantErr, err) {
-				t.Errorf("NextPageToken(%#v, %#v, %#v, %#v) got error = %#v, wantErr %#v", input.req, input.resultSize, input.minPageSize, input.maxPageSize, err, input.wantErr)
+				t.Errorf("NextPageToken(%v, %d, %d, %d) got error = %#v, wantErr %#v", input.req, input.resultSize, input.minPageSize, input.maxPageSize, err, input.wantErr)
 			}
 			if got != input.want {
-				t.Errorf("NextPageToken(%#v, %#v, %#v, %#v) = %#v, want %#v", input.req, input.resultSize, input.minPageSize, input.maxPageSize, got, input.want)
+				t.Errorf("NextPageToken(%v, %d, %d, %d) = %#v, want %#v", input.req, input.resultSize, input.minPageSize, input.maxPageSize, got, input.want)
 			}
 		})
 	}
@@ -155,14 +155,14 @@ func TestParseAndValidatePageToken(t *testing.T) {
 		},
 	}
 	for _, input := range tests {
-		t.Run(fmt.Sprintf("TestParseAndValidatePageToken(%#v)", input.req), func(t *testing.T) {
+		t.Run(fmt.Sprintf("TestParseAndValidatePageToken(%v)", input.req), func(t *testing.T) {
 			got, err := ParseAndValidatePageToken(input.req)
 			if !testUtils.IsErrorEqual(input.wantErr, err) {
-				t.Errorf("ParseAndValidatePageToken(%#v) got error = %#v, wantErr %#v", input.req, err, input.wantErr)
+				t.Errorf("ParseAndValidatePageToken(%v) got error = %#v, wantErr %#v", input.req, err, input.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, input.want) {
-				t.Errorf("ParseAndValidatePageToken(%#v) = %#v, want %#v", input.req, got, input.want)
+				t.Errorf("ParseAndValidatePageToken(%v) = %#v, want %#v", input.req, got, input.want)
 			}
 		})
 	}
