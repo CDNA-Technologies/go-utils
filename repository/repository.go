@@ -6,6 +6,9 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+/**
+	Create a order by scope 
+**/
 func WithOrderBy(ob map[string]string) []func(db *gorm.DB) *gorm.DB {
 	var clauses []func(*gorm.DB) *gorm.DB
 	for k, v := range ob {
@@ -15,6 +18,9 @@ func WithOrderBy(ob map[string]string) []func(db *gorm.DB) *gorm.DB {
 	return clauses
 }
 
+/**
+	Create a pagination scope 
+**/
 func WithPagination(pageSize int, offSet int) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
 		return db.Offset(offSet).Limit(pageSize)
