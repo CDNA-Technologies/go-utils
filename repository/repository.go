@@ -7,7 +7,7 @@ import (
 )
 
 /**
-	Create a order by scope 
+	Create a order by scope
 **/
 func WithOrderBy(ob map[string]string) []func(db *gorm.DB) *gorm.DB {
 	var clauses []func(*gorm.DB) *gorm.DB
@@ -19,7 +19,7 @@ func WithOrderBy(ob map[string]string) []func(db *gorm.DB) *gorm.DB {
 }
 
 /**
-	Create a pagination scope 
+	Create a pagination scope
 **/
 func WithPagination(pageSize int, offSet int) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
