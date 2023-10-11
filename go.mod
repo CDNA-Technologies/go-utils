@@ -1,6 +1,6 @@
 module github.com/CDNA-Technologies/go-utils
 
-go 1.20
+go 1.18
 
 require (
 	github.com/CDNA-Technologies/proto-gen/go/gonuclei/masterdata v1.5.340-draft
