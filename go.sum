@@ -1,5 +1,3 @@
-github.com/CDNA-Technologies/proto-gen/go/gonuclei/masterdata v1.5.340-draft h1:vtFFkwdz4EAj5d79yw/odpYT1t7TSfn27om1TEjAMcQ=
-github.com/CDNA-Technologies/proto-gen/go/gonuclei/masterdata v1.5.340-draft/go.mod h1:O2ikldBl1/UQ2Qi2Nihz2EMgGmt9zhIk4gOvEFOZtNw=
 github.com/PuerkitoBio/goquery v1.5.1/go.mod h1:GsLWisAFVj4WgDibEWF4pvYnkVQBpKBKeU+7zCJoLcc=
 github.com/andybalholm/cascadia v1.1.0/go.mod h1:GsXiBklL0woXo1j/WYWtSYYC4ouU9PqHO0sqidkEA4Y=
 github.com/denisenkom/go-mssqldb v0.0.0-20191124224453-732737034ffd h1:83Wprp6ROGeiHFAP8WJdI2RoxALQYgdllERc3N5N2DM=
@@ -49,6 +47,7 @@ golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543/go.mod h1:I/5z698sn9Ka8T
 google.golang.org/genproto v0.0.0-20230725213213-b022f6e96895 h1:f4HtRHVw5oEuUSMwhzcRW+w4X9++1iU+MZ9cRAHbWxk=
 google.golang.org/genproto v0.0.0-20230725213213-b022f6e96895/go.mod h1:0ggbjUrZYpy1q+ANUS30SEoGZ53cdfwtbuG7Ptgy108=
 google.golang.org/genproto/googleapis/api v0.0.0-20230725213213-b022f6e96895 h1:9rcwSXpqHEULy96NKetvTJMCLnvnod0LcF8A/ULEBxE=
+google.golang.org/genproto/googleapis/api v0.0.0-20230725213213-b022f6e96895/go.mod h1:rsr7RhLuwsDKL7RmgDDCUc6yaGr1iqceVb5Wv6f6YvQ=
 google.golang.org/genproto/googleapis/rpc v0.0.0-20230725213213-b022f6e96895 h1:co8AMhI481nhd3WBfW2mq5msyQHNBcGn7G9GCEqz45k=
 google.golang.org/genproto/googleapis/rpc v0.0.0-20230725213213-b022f6e96895/go.mod h1:TUfxEVdsvPg18p6AslUXFoLdpED4oBnGwyqk3dV1XzM=
 google.golang.org/grpc v1.56.2 h1:fVRFRnXvU+x6C4IlHZewvJOVHoOv1TUuQyoRsYnB4bI=

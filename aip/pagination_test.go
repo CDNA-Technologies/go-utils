@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	testUtils "github.com/CDNA-Technologies/go-utils/testing"
-	pb "github.com/CDNA-Technologies/proto-gen/go/gonuclei/masterdata/v2"
 	"go.einride.tech/aip/pagination"
+	pb "google.golang.org/genproto/googleapis/example/library/v1"
 )
 
 func TestParseAndValidatePageSize(t *testing.T) {
@@ -19,7 +19,7 @@ func TestParseAndValidatePageSize(t *testing.T) {
 		wantErr     error
 	}{
 		{
-			req: &pb.ListPartnersRequest{
+			req: &pb.ListBooksRequest{
 				PageSize:  1,
 				PageToken: "",
 			},
@@ -29,7 +29,7 @@ func TestParseAndValidatePageSize(t *testing.T) {
 			wantErr:     nil,
 		},
 		{
-			req: &pb.ListPartnersRequest{
+			req: &pb.ListBooksRequest{
 				PageSize:  500,
 				PageToken: "",
 			},
@@ -39,7 +39,7 @@ func TestParseAndValidatePageSize(t *testing.T) {
 			wantErr:     nil,
 		},
 		{
-			req: &pb.ListPartnersRequest{
+			req: &pb.ListBooksRequest{
 				PageSize:  50,
 				PageToken: "",
 			},
@@ -49,7 +49,7 @@ func TestParseAndValidatePageSize(t *testing.T) {
 			wantErr:     nil,
 		},
 		{
-			req: &pb.ListPartnersRequest{
+			req: &pb.ListBooksRequest{
 				PageSize:  -5,
 				PageToken: "",
 			},
@@ -84,7 +84,7 @@ func TestNextPageToken(t *testing.T) {
 		wantErr     error
 	}{
 		{
-			req: &pb.ListPartnersRequest{
+			req: &pb.ListBooksRequest{
 				PageSize:  10,
 				PageToken: "",
 			},
@@ -95,7 +95,7 @@ func TestNextPageToken(t *testing.T) {
 			wantErr:     nil,
 		},
 		{
-			req: &pb.ListPartnersRequest{
+			req: &pb.ListBooksRequest{
 				PageSize:  10,
 				PageToken: "",
 			},
@@ -128,7 +128,7 @@ func TestParseAndValidatePageToken(t *testing.T) {
 		wantErr error
 	}{
 		{
-			req: &pb.ListPartnersRequest{
+			req: &pb.ListBooksRequest{
 				PageToken: "Random String",
 				PageSize:  10,
 			},
@@ -136,7 +136,7 @@ func TestParseAndValidatePageToken(t *testing.T) {
 			wantErr: fmt.Errorf("parse offset page token: decode page token struct: illegal base64 data at input byte 6"),
 		},
 		{
-			req: &pb.ListPartnersRequest{
+			req: &pb.ListBooksRequest{
 				PageToken: "",
 				PageSize:  10,
 			},
@@ -147,7 +147,7 @@ func TestParseAndValidatePageToken(t *testing.T) {
 			wantErr: nil,
 		},
 		{
-			req: &pb.ListPartnersRequest{
+			req: &pb.ListBooksRequest{
 				PageToken: "Nv-BAwEBCVBhZ2VUb2tlbgH_ggABAgEGT2Zmc2V0AQQAAQ9SZXF1ZXN0Q2hlY2tzdW0BBgAAAAv_ggEUAfyaywRCAA==",
 				PageSize:  10,
 			},
