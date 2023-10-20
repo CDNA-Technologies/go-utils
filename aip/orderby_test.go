@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	testUtils "github.com/CDNA-Technologies/go-utils/testing"
-	pb "github.com/CDNA-Technologies/proto-gen/go/gonuclei/masterdata/v2"
 	"go.einride.tech/aip/ordering"
 )
 
@@ -17,39 +16,29 @@ func TestParseAndValidateOrderBy(t *testing.T) {
 		wantErr error
 	}{
 		{
-			req: &pb.ListPartnersRequest{
-				OrderBy: "",
-			},
+			req:     mockRequest{orderBy: ""},
 			want:    make(map[string]string),
 			wantErr: nil,
 		},
 		{
-			req: &pb.ListPartnersRequest{
-				OrderBy: "?",
-			},
+			req:     mockRequest{orderBy: "?"},
 			want:    nil,
 			wantErr: fmt.Errorf("unmarshal order by '?': invalid character '?'"),
 		},
 		{
-			req: &pb.ListPartnersRequest{
-				OrderBy: "name desc age asc",
-			},
+			req:     mockRequest{orderBy: "name desc age asc"},
 			want:    nil,
 			wantErr: fmt.Errorf("unmarshal order by 'name desc age asc': invalid format"),
 		},
 		{
-			req: &pb.ListPartnersRequest{
-				OrderBy: "name desc",
-			},
+			req: mockRequest{orderBy: "name desc"},
 			want: map[string]string{
 				"name": "DESC",
 			},
 			wantErr: nil,
 		},
 		{
-			req: &pb.ListPartnersRequest{
-				OrderBy: "name desc, age",
-			},
+			req: mockRequest{orderBy: "name desc, age"},
 			want: map[string]string{
 				"name": "DESC",
 				"age":  "",
@@ -57,9 +46,7 @@ func TestParseAndValidateOrderBy(t *testing.T) {
 			wantErr: nil,
 		},
 		{
-			req: &pb.ListPartnersRequest{
-				OrderBy: "name Desc, age",
-			},
+			req:     mockRequest{orderBy: "name Desc, age"},
 			want:    nil,
 			wantErr: fmt.Errorf("unmarshal order by 'name Desc, age': invalid format"),
 		},
@@ -77,4 +64,13 @@ func TestParseAndValidateOrderBy(t *testing.T) {
 			}
 		})
 	}
+}
+
+type mockRequest struct {
+	orderBy string
+}
+
+
+func (m mockRequest) GetOrderBy() string {
+	return m.orderBy
 }
