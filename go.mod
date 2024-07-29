@@ -1,8 +1,6 @@
 module github.com/CDNA-Technologies/go-utils
 
-go 1.21
-
-toolchain go1.21.5
+go 1.20
 
 require (
 	github.com/jinzhu/gorm v1.9.16
@@ -18,6 +16,6 @@ require (
 	golang.org/x/text v0.16.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240528184218-531527333157 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240725223205-93522f1f2a9f // indirect
-	google.golang.org/grpc v1.65.0 // indirect
+	google.golang.org/grpc v1.64.0 // indirect
 	google.golang.org/protobuf v1.34.2 // indirect
 )
