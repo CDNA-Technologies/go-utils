@@ -102,7 +102,7 @@ func TestNextPageToken(t *testing.T) {
 			resultSize:  15,
 			minPageSize: 5,
 			maxPageSize: 100,
-			want:        "Nv-BAwEBCVBhZ2VUb2tlbgH_ggABAgEGT2Zmc2V0AQQAAQ9SZXF1ZXN0Q2hlY2tzdW0BBgAAAAv_ggEUAfyaywRCAA==",
+			want:        "NX8DAQEJUGFnZVRva2VuAf-AAAECAQZPZmZzZXQBBAABD1JlcXVlc3RDaGVja3N1bQEGAAAAC_-AARQB_JrLBEIA",
 			wantErr:     nil,
 		},
 	}
@@ -148,7 +148,7 @@ func TestParseAndValidatePageToken(t *testing.T) {
 		},
 		{
 			req: &pb.ListBooksRequest{
-				PageToken: "Nv-BAwEBCVBhZ2VUb2tlbgH_ggABAgEGT2Zmc2V0AQQAAQ9SZXF1ZXN0Q2hlY2tzdW0BBgAAAAv_ggEUAfyaywRCAA==",
+				PageToken: "NX8DAQEJUGFnZVRva2VuAf-AAAECAQZPZmZzZXQBBAABD1JlcXVlc3RDaGVja3N1bQEGAAAAC_-AARQB_JrLBEIA",
 				PageSize:  10,
 			},
 			want: pagination.PageToken{
